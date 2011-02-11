@@ -17,11 +17,11 @@ BuildRoot: %{_tmppath}/%{name}-%{version}
 Source: %{name}.tar.gz
 
 BuildRequires: asterisk-devel
-BuildRequires: unimrcp-devel unimrcp-deps-devel
+BuildRequires: libunimrcp-devel libunimrcp-deps-devel
 
 Requires: asterisk
 Requires: libunimrcp
-Requires: unimrcp-deps
+Requires: libunimrcp-deps
 
 %description
 Media Resource Control Protocol (MRCP) allows to control media processing
