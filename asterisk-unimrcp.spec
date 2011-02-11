@@ -1,6 +1,10 @@
+%define name asterisk-unimrcp
+%define devel %mklibname %{name} -d
+%define staticdevel %mklibname -d -s %{name}
+
 %define svnrelease 1798
 
-Name: asterisk-unimrcp
+Name: %{name}
 Version: 0.%svnrelease
 Release: %mkrel 0
 
@@ -13,10 +17,11 @@ BuildRoot: %{_tmppath}/%{name}-%{version}
 Source: %{name}.tar.gz
 
 BuildRequires: asterisk-devel
-BuildRequires: libunimrcp-devel
+BuildRequires: unimrcp-devel unimrcp-deps-devel
 
 Requires: asterisk
 Requires: libunimrcp
+Requires: unimrcp-deps
 
 %description
 Media Resource Control Protocol (MRCP) allows to control media processing
@@ -27,13 +32,21 @@ Media processing resources include:
 - Speaker Verifier (SV)
 - Speech Recorder (SR)
 
-%package -n asterisk-unimrcp-devel
+%package -n %{devel}
 Summary: Media Resource Control Protocol Stack development
 Group: Development/C
-Requires: asterisk-unimrcp = %version-%release
+Requires: %{name} = %version-%release
 
-%description -n asterisk-unimrcp-devel
+%package -n %{staticdevel}
+Summary: Media Resource Control Protocol Stack development static
+Group: Development/C
+Requires: %{name} = %version-%release
+
+%description -n %{devel}
 Development files for asterisk-unimrcp
+
+%description -n %{staticdevel}
+Static development files for asterisk-unimrcp
 
 %prep
 %setup -q -n %{name}
@@ -64,7 +77,10 @@ rm -fr %{buildroot}
 %{_libdir}/asterisk/modules/*.so
 %config(noreplace) %{_sysconfdir}/asterisk/*.conf
 
-%files -n asterisk-unimrcp-devel
+%files -n %{devel}
+%defattr(-,root,root)
+%{_libdir}/asterisk/modules/*.la
+
+%files -n %{staticdevel}
 %defattr(-,root,root)
 %{_libdir}/asterisk/modules/*.a
-%{_libdir}/asterisk/modules/*.la
