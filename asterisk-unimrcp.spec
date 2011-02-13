@@ -69,8 +69,6 @@ perl -pi -w -e 's/\$\(asterisk_conf_dir\)/\$\(DESTDIR\)\$\(asterisk_conf_dir\)/g
 install -d -m1775 %{buildroot}%{_sysconfdir}/asterisk
 %makeinstall_std
 
-#install -m0664 conf/*.conf %{buildroot}%{_sysconfdir}/asterisk/
-
 %clean
 rm -fr %{buildroot}
 
