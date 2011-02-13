@@ -57,14 +57,13 @@ perl -pi -w -e 's/lib\/pkgconfig/pkgconfig/g' configure
 perl -pi -w -e 's/UNIMRCP_DIR_LOCATION \"\$unimrcp_dir\"/UNIMRCP_DIR_LOCATION \"\/etc\/unimrcp\"/g' configure
 
 %configure2_5x \
-    LDFLAGS=-rpath=%{_datadir}/unimrcp-deps/lib \
     --sysconfdir=%{_sysconfdir}/asterisk \
     --with-unimrcp=%{_libdir} \
     --prefix=%{_libdir}/asterisk/modules
 
 %install
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
-%makeinstall_std DESTDIR=%{buildroot} install
+%makeinstall_std
 
 install -d -m1775 %{buildroot}%{_sysconfdir}/asterisk
 install -m0664 conf/*.conf %{buildroot}%{_sysconfdir}/asterisk/
